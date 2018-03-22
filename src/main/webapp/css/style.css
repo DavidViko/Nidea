@@ -1,0 +1,11 @@
+#logo{
+	height: 70px;
+}
+input, select{
+	margin:10px;
+}
+
+.btn{
+	margin:20px;
+	padding:10px;
+}
