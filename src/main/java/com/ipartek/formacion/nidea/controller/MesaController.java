@@ -36,6 +36,7 @@ public class MesaController extends HttpServlet implements Servlet {
 		String sPatas = request.getParameter("patas");
 		String sDimension = request.getParameter("dimension");
 		String sColor = request.getParameter("color");
+		String sCustom = request.getParameter("custom");
 		String sMaterial = request.getParameter("material");
 
 		// si los parametros no son NULL (se viene desde el formulario) recoger y crear
@@ -48,10 +49,16 @@ public class MesaController extends HttpServlet implements Servlet {
 			int dimension = Integer.parseInt(sDimension);
 			m.setDimension(dimension);
 		}
+
+		if (sCustom == null) {
+			m.setCustom(false);
+		} else { // viene 'on'
+			m.setCustom(true);
+		}
 		if (sColor != null) {
 			m.setColor(sColor);
 		}
-		if (sPatas != null) {
+		if (sMaterial != null) {
 			int material = Integer.parseInt(sMaterial);
 			m.setMaterial(material);
 		}

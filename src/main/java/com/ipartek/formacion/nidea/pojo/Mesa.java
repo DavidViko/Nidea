@@ -1,14 +1,14 @@
-//1. Definición paquete Package
+//1. Definiciï¿½n paquete Package
 package com.ipartek.formacion.nidea.pojo;
 
 //2. Imports
 
-//3. Definición de la clase
+//3. Definiciï¿½n de la clase
 public class Mesa {
 
 	// Por defecto de 4 patas, blanco, madera y 1 metro cuadrado
 
-	// precios en €
+	// precios en ï¿½
 	public static final int PRECIO_PATA = 1; // publis static para poder usarlas en otros metodos de la clase
 	public static final int PRECIO_M2 = 5;
 	public static final int PRECIO_MATERIAL_MADERA = 4;
@@ -23,14 +23,20 @@ public class Mesa {
 	public static final int MATERIAL_ALUMINIO = 3;
 	public static final int MATERIAL_PLASTICO = 4;
 
-	// 4. Atributos. Siempre PRIVATE para mantener la encapsulación
+	// estos arrays para hacer mas comodo, para cuando las listas sean mas largas,
+	// poder manipualrla mas comodo
+	public static final String[] MATERIALES_LISTA = { "madera", "acero", "aluminio", "plastico" };
+	public static final int[] MATERIALES_LISTA_CODIGO = { 1, 2, 3, 4 };
+
+	// 4. Atributos. Siempre PRIVATE para mantener la encapsulaciï¿½n
 	private int numeroPatas;
 	private int dimension;// metros cuadrados
 	private String color;
+	private boolean custom;
 	private int material;
 
 	/*
-	 * 5. Métodos 5.1 Constructores 5.2 Getters y setters 5.3 Otros
+	 * 5. Mï¿½todos 5.1 Constructores 5.2 Getters y setters 5.3 Otros
 	 */
 
 	/**
@@ -40,12 +46,13 @@ public class Mesa {
 		super(); // el constructor por defecto siempre llama a super()
 		setNumeroPatas(4);
 		setColor("blanco");
+		// isCustom() = false;
 		setDimension(1);
 		setMaterial(MATERIAL_MADERA);
 	}
 
 	/**
-	 * Constructor con 1 parámetro (Sobrecarga del constructor)
+	 * Constructor con 1 parï¿½metro (Sobrecarga del constructor)
 	 * 
 	 * @param material
 	 */
@@ -55,7 +62,7 @@ public class Mesa {
 	}
 
 	/**
-	 * Constructr con 2 parámetros
+	 * Constructr con 2 parï¿½metros
 	 * 
 	 * @param material
 	 * @param dimension
@@ -70,7 +77,7 @@ public class Mesa {
 	}
 
 	/**
-	 * El número de patas no puede ser negativo. En ese caso se le asignará 0.
+	 * El nï¿½mero de patas no puede ser negativo. En ese caso se le asignarï¿½ 0.
 	 * 
 	 * @param numeroPatas
 	 */
@@ -94,6 +101,14 @@ public class Mesa {
 		this.color = color;
 	}
 
+	public boolean isCustom() {
+		return custom;
+	}
+
+	public void setCustom(boolean custom) {
+		this.custom = custom;
+	}
+
 	public int getMaterial() {
 		return material;
 	}
@@ -112,7 +127,7 @@ public class Mesa {
 	 * Calculamos el precio de la mesa en funcion de los materiales
 	 * 
 	 * @see consultar las constantes definidas para los precios
-	 * @return int precio en €
+	 * @return int precio en ï¿½
 	 */
 	public int getPrecio() {
 		int precio = 0;

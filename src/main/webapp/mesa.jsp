@@ -13,15 +13,15 @@
 <form action="generar-mesa" method="post">
 	<div>
 		<label for="patas">N&uacute;mero de patas</label>
-		<input type="text" name="patas" value="4" required>
+		<input type="text" name="patas" value="<%=mesa.getNumeroPatas()%>" required>
 	</div>
 	<div>
 		<label for="dimension">Dimensi&oacute;n</label>
-		<input type="text" name="dimension" value="1">
+		<input type="text" name="dimension" value="<%=mesa.getDimension()%>">
 	</div>
 	<div>
 		<label for="color">Color personalizado</label>
-		<input type="checkbox" name="colorChbx" value="false">
+		<input type="checkbox" name="custom" <%=(mesa.isCustom())?"checked":"" %>>
 		<input type="text" name="color" class="jscolor">
 	</div>
 	<div>
