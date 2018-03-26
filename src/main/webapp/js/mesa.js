@@ -1,6 +1,13 @@
-var checkColor = document.getElementById("colorChbx");
-var inputColor = document.getElementById("color").style.visibility;
+var checkColor = document.getElementById("custom");
+var inputColor = document.getElementById("color");
 
-if(!checkColor.selected){
-	inputColor = "hidden";
-} 
+showColor();
+
+function showColor(){
+	if(checkColor.checked){
+		inputColor.style.display = "inline-block";
+	} 
+	else{
+		inputColor.style.display = "none";
+	}
+}

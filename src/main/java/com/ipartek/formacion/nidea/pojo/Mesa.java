@@ -44,9 +44,9 @@ public class Mesa {
 	 */
 	public Mesa() {
 		super(); // el constructor por defecto siempre llama a super()
-		setNumeroPatas(4);
+		this.numeroPatas = 4;
 		setColor("blanco");
-		// isCustom() = false;
+		setCustom(false);
 		setDimension(1);
 		setMaterial(MATERIAL_MADERA);
 	}
@@ -77,12 +77,18 @@ public class Mesa {
 	}
 
 	/**
-	 * El n�mero de patas no puede ser negativo. En ese caso se le asignar� 0.
+	 * El numero de patas no puede ser negativo. En ese caso se le asignara 1.
 	 * 
 	 * @param numeroPatas
+	 *            int
+	 * @throws MesaException
+	 *             Lanza exception si numero de patas <= 0
 	 */
-	public void setNumeroPatas(int numeroPatas) {
-		this.numeroPatas = (numeroPatas <= 0) ? 1 : numeroPatas;
+	public void setNumeroPatas(int numeroPatas) throws MesaException {
+		if (numeroPatas <= 0) {
+			throw new MesaException(MesaException.MENSAJE_PATAS);// hay que darle al error y poner addthrows Declaration
+		}
+		this.numeroPatas = numeroPatas;
 	}
 
 	public int getDimension() {
@@ -151,7 +157,14 @@ public class Mesa {
 
 		precio = precio + PRECIO_M2 * dimension;
 
-		if ("custom".equalsIgnoreCase(color)) { // IgnoreCase ignora las mayusculas
+		// Cuando se mete por consola
+		/*
+		 * if ("custom".equalsIgnoreCase(color)) { // IgnoreCase ignora las mayusculas
+		 * precio = precio + PRECIO_COLOR_CUSTOM; }
+		 */
+
+		// Cuando se mete por formulario. Hay un checkbox (seleccionado o no)
+		if (isCustom()) {
 			precio = precio + PRECIO_COLOR_CUSTOM;
 		}
 

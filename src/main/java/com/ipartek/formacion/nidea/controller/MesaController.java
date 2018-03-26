@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.nidea.pojo.Alert;
 import com.ipartek.formacion.nidea.pojo.Mesa;
 
 /**
@@ -43,7 +44,18 @@ public class MesaController extends HttpServlet implements Servlet {
 		// una a medida
 		if (sPatas != null) {
 			int patas = Integer.parseInt(sPatas);
-			m.setNumeroPatas(patas);
+			try {
+				m.setNumeroPatas(patas);
+			} catch (Exception e) {
+				try {
+					m.setNumeroPatas(1);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+				request.setAttribute("alert", new Alert(e.getMessage(), Alert.TIPO_WARNING));
+			}
+
 		}
 		if (sDimension != null) {
 			int dimension = Integer.parseInt(sDimension);
@@ -70,6 +82,8 @@ public class MesaController extends HttpServlet implements Servlet {
 
 		// enviar atributos a la JSP
 		request.setAttribute("mesa", m);// lo que se pasa puede ser cualquier cosa (int, string, objeto...)
+		request.setAttribute("materiales", Mesa.MATERIALES_LISTA);
+		request.setAttribute("materialesCodigo", Mesa.MATERIALES_LISTA_CODIGO);
 
 		// ir a la JSP
 		request.getRequestDispatcher("mesa.jsp").forward(request, response);
