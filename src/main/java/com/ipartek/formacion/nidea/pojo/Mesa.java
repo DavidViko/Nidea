@@ -17,6 +17,7 @@ public class Mesa {
 	public static final int PRECIO_MATERIAL_PLASTICO = 2;
 	public static final int PRECIO_COLOR_CUSTOM = 23;
 	public static final String PRECIO_COLOR_NAME_CUSTOM = "custom";
+	public static final String COLOR_POR_DEFECTO = "#FFF";
 
 	public static final int MATERIAL_MADERA = 1;
 	public static final int MATERIAL_ACERO = 2;
@@ -33,7 +34,7 @@ public class Mesa {
 	private int dimension;// metros cuadrados
 	private String color;
 	private boolean custom;
-	private int material;
+	private Material material;
 
 	/*
 	 * 5. M�todos 5.1 Constructores 5.2 Getters y setters 5.3 Otros
@@ -44,11 +45,12 @@ public class Mesa {
 	 */
 	public Mesa() {
 		super(); // el constructor por defecto siempre llama a super()
+		// inicializar los atributos
 		this.numeroPatas = 4;
-		setColor("blanco");
-		setCustom(false);
-		setDimension(1);
-		setMaterial(MATERIAL_MADERA);
+		this.dimension = 1;
+		this.color = COLOR_POR_DEFECTO; // blanco
+		this.custom = false;
+		this.material = new Material();
 	}
 
 	/**
@@ -56,7 +58,7 @@ public class Mesa {
 	 * 
 	 * @param material
 	 */
-	public Mesa(int material) {
+	public Mesa(Material material) {
 		this(); // llamar siempre al constructor por defecto
 		this.material = material;
 	}
@@ -67,7 +69,7 @@ public class Mesa {
 	 * @param material
 	 * @param dimension
 	 */
-	public Mesa(int material, int dimension) {
+	public Mesa(Material material, int dimension) {
 		this(material); // llamar siempre al constructor padre
 		this.dimension = dimension;
 	}
@@ -115,11 +117,11 @@ public class Mesa {
 		this.custom = custom;
 	}
 
-	public int getMaterial() {
+	public Material getMaterial() {
 		return material;
 	}
 
-	public void setMaterial(int material) {
+	public void setMaterial(Material material) {
 		this.material = material;
 	}
 
@@ -135,39 +137,43 @@ public class Mesa {
 	 * @see consultar las constantes definidas para los precios
 	 * @return int precio en �
 	 */
-	public int getPrecio() {
-		int precio = 0;
+	public float getPrecio() {
+		float resul = 0;
 
-		precio = precio + numeroPatas * PRECIO_PATA;
+		resul += this.numeroPatas * PRECIO_PATA;
+		resul += this.dimension * PRECIO_M2;
 
-		switch (material) {
-		case MATERIAL_MADERA:
-			precio = precio + PRECIO_MATERIAL_MADERA;
-			break;
-		case MATERIAL_ACERO:
-			precio = precio + PRECIO_MATERIAL_ACERO;
-			break;
-		case MATERIAL_ALUMINIO:
-			precio = precio + PRECIO_MATERIAL_ALUMINIO;
-			break;
-		case MATERIAL_PLASTICO:
-			precio = precio + PRECIO_MATERIAL_PLASTICO;
-			break;
+		if (!COLOR_POR_DEFECTO.equalsIgnoreCase(this.color)) {
+			resul += PRECIO_COLOR_CUSTOM;
 		}
 
-		precio = precio + PRECIO_M2 * dimension;
+		resul += material.getPrecio();
 
-		// Cuando se mete por consola
+		return resul;
+
 		/*
+		 * int precio = 0;
+		 * 
+		 * precio = precio + numeroPatas * PRECIO_PATA;
+		 * 
+		 * switch (material) { case MATERIAL_MADERA: precio = precio +
+		 * PRECIO_MATERIAL_MADERA; break; case MATERIAL_ACERO: precio = precio +
+		 * PRECIO_MATERIAL_ACERO; break; case MATERIAL_ALUMINIO: precio = precio +
+		 * PRECIO_MATERIAL_ALUMINIO; break; case MATERIAL_PLASTICO: precio = precio +
+		 * PRECIO_MATERIAL_PLASTICO; break; }
+		 * 
+		 * precio = precio + PRECIO_M2 * dimension;
+		 * 
+		 * // Cuando se mete por consola
+		 * 
 		 * if ("custom".equalsIgnoreCase(color)) { // IgnoreCase ignora las mayusculas
 		 * precio = precio + PRECIO_COLOR_CUSTOM; }
+		 * 
+		 * 
+		 * // Cuando se mete por formulario. Hay un checkbox (seleccionado o no) if
+		 * (isCustom()) { precio = precio + PRECIO_COLOR_CUSTOM; }
+		 * 
+		 * return precio;
 		 */
-
-		// Cuando se mete por formulario. Hay un checkbox (seleccionado o no)
-		if (isCustom()) {
-			precio = precio + PRECIO_COLOR_CUSTOM;
-		}
-
-		return precio;
 	}
 }
